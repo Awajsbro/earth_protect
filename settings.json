@@ -1,0 +1,14 @@
+{
+	"earthRadius": 1000,
+	"asteroidRadius": 15,
+	"shootHeight": 8,
+	"shootWidth": 4,
+	"chargeBeamWidth": 10,
+	"asteroidSpeed": 4,
+	"shootSpeed": 10,
+	"shootStartY": 150,
+	"life": 5,
+	"asteroidRng": 0.96,
+	"precisionMinBonus": 0.7,
+	"delayBetweenShoot": 200
+}

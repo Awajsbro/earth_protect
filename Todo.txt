@@ -1,0 +1,66 @@
+gameplay :
+ - mega laser
+ - mega bombe
+ - obstacle
+ - upgrade
+ - monaie
+ - equilibrage
+ - message tuto
+ - delais tir/competence
+ - barre de rechargement
+
+page :
+ - home
+ - upgrade
+ - options
+ - score
+ - credit
+
+sprite :
+ - terre
+ - asteroid
+ - tir
+ - mega laser charge
+ - mega laser release
+ - mega bombe
+ - canon (x?)
+ - obstacle
+ - ciel
+ - icone
+ - visuel amelioration
+
+animation :
+ - rotation de la terre ???
+ - rotation asteroid ??
+ - obstacle animation  ??
+ - explosion asteroid
+ - charge canon
+ - canon release
+ - mega bombe deplacement
+ - mega bombe expolision
+ - crash asteroid
+ - defeat explosion
+ - bouton clic
+ - upgrade buy
+ - upgrade not enouth money
+ - the world
+
+son :
+ - son ambient
+ - explosion asteroid
+ - asteroid crash
+ - canon charge
+ - mega laser
+ - canon shoot
+ - mega bombe explosion
+ - mega bombe deplacement
+ - low life
+ - defete
+ - bouton clic
+ - upgrade buy
+ - upgrade not enouth money
+ - the world
+
+bug :
+ - barre de vie qui apparait pas
+ - colision entre shoot et asteroid parfois seul 1 des 2 disparer

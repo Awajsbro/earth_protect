@@ -2,7 +2,7 @@
   "expo": {
     "name": "Earth_Protect",
     "slug": "Earth_Protect",
-    "version": "1.0.0",
+    "version": "0.3.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

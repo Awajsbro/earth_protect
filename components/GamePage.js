@@ -1,0 +1,352 @@
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
+import { asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot } from "../settings.json"
+import Asteroid from "./Asteroid"
+import Earth from "./Earth"
+import Shoot from "./Shoot"
+import ChargeBeam from "./ChargeBeam"
+import HealthBar from "./HealthBar"
+import GameOver from "./gameOver"
+
+const GamePage = ({ screenHeight, screenWidth, backHome }) => {
+	const [asteroids, setAsteroids] = useState({})
+	const [shoots, setShoots] = useState({})
+	const [newShoot, setNewShoot] = useState({})
+	const [blockShoot, setBlockShoot] = useState(false)
+	const [chargeBeam, setChargeBeam] = useState(false)
+	const [nbAsteroidsDestroyed, setNbAsteroidsDestroyed] = useState(0)
+	const [nbAsteroidsLand, setNbAsteroidsLand] = useState(0)
+	const [shootsCount, setShootsCount] = useState(0)
+	const [newTap, setNewTap] = useState(null)
+	const [gameStart, setGameStart] = useState(false)
+	const [gameOver, setGameOver] = useState(false)
+	const [theWorld, setTheWorld] = useState(false)
+	let asteroidsTimerId
+	let shootsTimerId
+	let doubleTapTimerId
+
+
+	// Vector calculator
+	const vectorCalculator = (x, y, targetX, targetY) => {
+		let angle = Math.atan(Math.abs(x - targetX) / Math.abs(y - targetY))
+
+		if (x < targetX)
+			angle = -angle
+
+		return [Math.sin(angle), Math.cos(angle), angle]
+	}
+
+
+	// Distance calculator
+	const distCalculator = (x, y, targetX, targetY) => {
+		return Math.sqrt(Math.pow(x - targetX, 2) + Math.pow(y - targetY, 2))
+	}
+
+
+	// Restart
+	const restartGame = () => {
+		clearInterval(asteroidsTimerId)
+		clearInterval(shootsTimerId)
+		setTimeout(() => {
+			setNbAsteroidsDestroyed(0)
+			setNbAsteroidsLand(0)
+			setShootsCount(0)
+			setAsteroids({})
+			setShoots({})
+			setNewShoot({})
+			setGameOver(false)
+			console.log("restart")
+		}, 100)
+	}
+
+
+	// Tap handler for double tap detect
+	const tapHandler = (x, y) => {
+		if (!gameStart)
+			setGameStart(true)
+		else
+			if (newTap) {
+				setNewTap(false)
+				sendMegaBomb(x, y)
+			} else {
+				setNewTap(true)
+				if (!chargeBeam || !blockShoot)
+					shootMaker(x, y)
+			}
+	}
+
+	const longPressHandler = (x, y) => {
+		console.log(newTap)
+		if (newTap && !chargeBeam) {
+			setNewTap(false)
+			chargeBeamGenerator(x, y)
+		} else {
+			setNewTap(true)
+			if (!theWorld)
+				stopTime()
+		}
+	}
+
+	// Double tap reset
+	useEffect(() => {
+		doubleTapTimerId = setInterval(() => {
+			if (newTap) {
+				setNewTap(false)
+			}
+		}, 200)
+		return () => clearInterval(doubleTapTimerId)
+	}, [newTap])
+
+
+	// Za warudo
+	const stopTime = () => {
+		setTheWorld(true), setTimeout(() => { setTheWorld(false) }, 2000)
+	}
+
+
+	// ===============================  Shoots ===============================
+
+	// Charge beam generator
+	const chargeBeamGenerator = (targetX, targetY) => {
+		const [vectorX, vectorY, angle] = vectorCalculator(screenWidth / 2, screenHeight - shootStartY, targetX, targetY)
+
+		setChargeBeam({
+			x: (screenWidth - screenHeight * vectorX) / 2,
+			y: - shootStartY + screenHeight / 2 - vectorY * screenHeight / 2,
+			angle,
+		})
+		setTimeout(() => {
+			setChargeBeam(false)
+		}, delayBetweenShoot);
+	}
+
+	// Shoots generator
+	const shootMaker = (targetX, targetY) => {
+		const id = Math.random()
+		const [vectorX, vectorY, angle] = vectorCalculator(screenWidth / 2, screenHeight - shootStartY, targetX, targetY)
+
+		setBlockShoot(true)
+		setNewShoot({
+			id,
+			x: screenWidth / 2,
+			y: screenHeight - shootStartY,
+			deltaHitbox1: [-2 * Math.sin(angle), 2 * Math.cos(angle)],
+			deltaHitbox2: [2 * Math.sin(angle), -2 * Math.cos(angle)],
+			vectorX,
+			vectorY,
+			angle,
+		})
+		setTimeout(() => {
+			setBlockShoot(false)
+		}, 1000);
+	}
+
+
+	// Shoots event
+	useEffect(() => {
+		shootsTimerId = setInterval(() => {
+			let idA = Object.keys(asteroids).map(id => id)
+			let shootsTmp = { ...shoots }
+
+			// Add new shoot
+			if (newShoot.id != undefined && !Object.keys(shootsTmp).includes(newShoot.id)) {
+				shootsTmp[newShoot.id] = newShoot
+				setNewShoot({})
+				setShootsCount(shootsCount + 1)
+			}
+
+			// Shoots OOB
+			Object.keys(shootsTmp).forEach(idS => {
+				if (shootsTmp[idS].y < 0 || shootsTmp[idS].x < 0 || shootsTmp[idS].x > screenWidth) {
+					delete shootsTmp[idS]
+				}
+			})
+
+			// Shoots hit
+			for (let i = 0; i < idA.length; i++) {
+				Object.keys(shootsTmp).forEach(idS => {
+					let dist1 = distCalculator((shootsTmp[idS].x + shootsTmp[idS].deltaHitbox1[0]), (shootsTmp[idS].y + shootsTmp[idS].deltaHitbox1[1]), asteroids[idA[i]].x, asteroids[idA[i]].y)
+					let dist2 = distCalculator((shootsTmp[idS].x + shootsTmp[idS].deltaHitbox2[0]), (shootsTmp[idS].y + shootsTmp[idS].deltaHitbox2[1]), asteroids[idA[i]].x, asteroids[idA[i]].y)
+					if (dist1 < asteroidRadius + shootWidth || dist2 < asteroidRadius + shootWidth) {
+						delete shootsTmp[idS]
+					}
+				})
+			}
+
+			// Shoots move
+			if (!theWorld)
+				Object.keys(shootsTmp).map(id => {
+					shootsTmp[id] = {
+						...shootsTmp[id],
+						x: shootsTmp[id].x - shootsTmp[id].vectorX * shootSpeed,
+						y: shootsTmp[id].y - shootsTmp[id].vectorY * shootSpeed
+					}
+				})
+			setShoots(shootsTmp)
+		}, 30)
+		return () => { clearInterval(shootsTimerId) }
+	}, [shoots])
+
+
+	// ===============================  Asteroid ===============================
+
+	// Asteroid
+	useEffect(() => {
+		asteroidsTimerId = setInterval(() => {
+			let idS = Object.keys(shoots).map(id => id)
+			let asteroidsTmp = { ...asteroids }
+
+			// Asteroids land
+			Object.keys(asteroidsTmp).forEach(idA => {
+				if (asteroidsTmp[idA].y > screenHeight) {
+					setNbAsteroidsLand(nbAsteroidsLand => nbAsteroidsLand + 1)
+					delete asteroidsTmp[idA]
+					if (nbAsteroidsLand >= life - 1)
+						setGameOver(true)
+				}
+			})
+
+			// Asteroids shootes
+			for (let i = 0; i < idS.length; i++) {
+				Object.keys(asteroidsTmp).forEach(idA => {
+					let dist1 = distCalculator((shoots[idS[i]].x + shoots[idS[i]].deltaHitbox1[0]), (shoots[idS[i]].y + shoots[idS[i]].deltaHitbox1[1]), asteroidsTmp[idA].x, asteroidsTmp[idA].y)
+					let dist2 = distCalculator((shoots[idS[i]].x + shoots[idS[i]].deltaHitbox2[0]), (shoots[idS[i]].y + shoots[idS[i]].deltaHitbox2[1]), asteroidsTmp[idA].x, asteroidsTmp[idA].y)
+
+					if (dist1 < asteroidRadius + shootWidth || dist2 < asteroidRadius + shootWidth) {
+						setNbAsteroidsDestroyed(nbAsteroidsDestroyed => nbAsteroidsDestroyed + 1)
+						delete asteroidsTmp[idA]
+					}
+				})
+			}
+
+			// Destruction by chargeBeam
+			if (chargeBeam) {
+				Object.keys(asteroidsTmp).forEach(idA => {
+					const dist = distCalculator(screenWidth / 2, screenHeight - shootStartY, asteroidsTmp[idA].x, asteroidsTmp[idA].y)
+					const [, , angle] = vectorCalculator(screenWidth / 2, screenHeight - shootStartY, asteroidsTmp[idA].x, asteroidsTmp[idA].y)
+					if (dist * Math.abs(Math.sin(angle - chargeBeam.angle)) < asteroidRadius - chargeBeamWidth / 3)
+						delete asteroidsTmp[idA]
+				})
+			}
+
+			if (!theWorld) {
+				// Asteroids move
+				Object.keys(asteroidsTmp).map(id => {
+					asteroidsTmp[id] = {
+						...asteroidsTmp[id],
+						x: asteroids[id].x - asteroids[id].horizontalSpeed,
+						y: asteroids[id].y + asteroids[id].verticalSpeed
+					}
+				})
+
+				// Asteroids generator
+				if (gameStart && Math.random() > asteroidRng) {
+					const id = Math.random()
+					const x = Math.random() * (screenWidth - asteroidRadius * 2) + asteroidRadius
+					const [vectorX, vectorY] = vectorCalculator(x, 0, Math.random() * screenWidth, screenHeight)
+					const ownSpeed = asteroidSpeed * (Math.random() + 0.5)
+
+					asteroidsTmp[id] = {
+						id,
+						x,
+						y: -asteroidRadius,
+						horizontalSpeed: vectorX * ownSpeed,
+						verticalSpeed: vectorY * ownSpeed,
+					}
+				}
+			}
+			setAsteroids(asteroidsTmp)
+
+		}, 30)
+
+		return () => { clearInterval(asteroidsTimerId) }
+	}, [asteroids])
+
+
+	// ===============================  Render ===============================
+
+	// Asteroids render
+	const asteroidsRender = () => {
+		return <>
+			{Object.keys(asteroids).map(id => {
+				return <Asteroid
+					key={"asteroid" + id}
+					x={asteroids[id].x}
+					y={asteroids[id].y}
+				/>
+			})}
+		</>
+	}
+
+
+	// Shoots render
+	const shootsRender = () => {
+		return <>
+			{Object.keys(shoots).map(id => {
+				return <Shoot
+					key={"shoot" + id}
+					x={shoots[id].x}
+					y={shoots[id].y}
+					angle={shoots[id].angle}
+				/>
+			})}
+		</>
+	}
+
+
+	// HTML
+	return (
+		<TouchableOpacity
+			delayLongPress={300}
+			activeOpacity={1}
+			onPress={e => gameOver ? null : tapHandler(e.nativeEvent.pageX, e.nativeEvent.pageY)}
+			onLongPress={e => gameOver || chargeBeam ? null : longPressHandler(e.nativeEvent.pageX, e.nativeEvent.pageY)}
+			style={{
+				position: "absolute",
+				alignItems: 'center',
+				justifyContent: 'center',
+				height: screenHeight,
+				width: screenWidth
+			}}
+		>
+			{gameStart ? null :
+				<Text style={{ color: "white" }}>
+					{`Tap\t\t\tshoot\nHold\t\tcharge beam\nDouble tap\tざわ-るど`}
+				</Text>
+			}
+			<Earth screenHeigth={screenHeight} />
+			{asteroidsRender()}
+			{shootsRender()}
+			{chargeBeam ? <ChargeBeam
+				x={chargeBeam.x}
+				y={chargeBeam.y}
+				angle={chargeBeam.angle}
+				screenHeight={screenHeight}
+			/>
+				: null}
+			<HealthBar screenWidth={screenWidth} hits={nbAsteroidsLand} />
+			{gameOver ? <GameOver
+				shootsCount={shootsCount}
+				hits={nbAsteroidsDestroyed}
+				restart={restartGame}
+				backHome={backHome}
+			/>
+				: null}
+			{/* <View style={{ position: "absolute", bottom: shootStartY, height: 200, width: 20, left: screenWidth / 2, backgroundColor: "red", transform: [{ rotate: `${0}rad` }], }} /> */}
+		</TouchableOpacity>
+	)
+}
+
+
+// CSS
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: 'black',
+		alignItems: 'center',
+		justifyContent: 'center',
+		overflow: "hidden"
+	},
+})
+
+export default GamePage

@@ -64,3 +64,5 @@ son :
 bug :
  - barre de vie qui apparait pas
  - colision entre shoot et asteroid parfois seul 1 des 2 disparer
+
+ban keke

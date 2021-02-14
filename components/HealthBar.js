@@ -12,6 +12,7 @@ const HealthBar = ({ hits, screenWidth }) => {
 				style={{
 					position: "absolute",
 					height: 10,
+					bottom: 0,
 					left: i * screenWidth / life,
 					borderWidth: 1,
 					borderColor: "dark",

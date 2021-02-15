@@ -10,8 +10,9 @@ const HealthBar = ({ hits, screenWidth }) => {
 		for (let i = 1; i < life; i++) {
 			splitLife.push(<View key={"spliter" + i}
 				style={{
-					position: "absolute",
+					position: "fixed",
 					height: 10,
+					bottom: 0,
 					left: i * screenWidth / life,
 					borderWidth: 1,
 					borderColor: "dark",
@@ -22,7 +23,7 @@ const HealthBar = ({ hits, screenWidth }) => {
 
 	return <View
 		style={{
-			position: "absolute",
+			position: "fixed",
 			width: screenWidth,
 			height: 10,
 			bottom: 0,
@@ -32,7 +33,7 @@ const HealthBar = ({ hits, screenWidth }) => {
 		}}>
 		<View
 			style={{
-				position: "absolute",
+				position: "fixed",
 				padding: 0,
 				margin: 0,
 				width: (life - hits) * screenWidth / life,
@@ -45,7 +46,7 @@ const HealthBar = ({ hits, screenWidth }) => {
 		{spliter()}
 		<View
 			style={{
-				position: "absolute",
+				position: "fixed",
 				padding: 0,
 				margin: 0,
 				width: screenWidth,

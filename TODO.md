@@ -1,13 +1,13 @@
 # Earth Protect - Todo list
 
 **Gameplay :**
-* [ ] Mega laser
-* [ ] Mega bombe
+* [x] Mega laser
+* [x] Mega bombe
 * [ ] Obstacle
 * [ ] Upgrade
 * [ ] Monaie
 * [ ] Equilibrage
-* [ ] Message tuto
+* [-] Message tuto
 * [ ] Delais tir/competence
 * [ ] Barre de rechargement
 

@@ -4,6 +4,7 @@ import { } from "./settings.json"
 import GamePage from "./components/GamePage"
 import UpgradesPage from "./components/UpgradesPage"
 import OptionsPage from "./components/OptionsPage"
+import ScorePage from "./components/ScorePage"
 
 export default function App() {
   const screenWidth = Dimensions.get("screen").width
@@ -48,6 +49,8 @@ export default function App() {
             return <UpgradesPage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
           case 3:
             return <OptionsPage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
+          case 4:
+            return <ScorePage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
         }
       })()}
     </View >

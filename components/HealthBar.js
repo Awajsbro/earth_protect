@@ -29,8 +29,6 @@ const HealthBar = ({ hits, screenWidth }) => {
 			height: 10,
 			bottom: 0,
 			backgroundColor: "#8B0000",
-			// borderWidth: 3,
-			// borderColor: "black"
 		}}
 	>
 		<View

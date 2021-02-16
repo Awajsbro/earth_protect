@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Svg, { G, Path } from 'react-native-svg'
 
-const OptionsPage = ({ backHome }) => {
+const ScorePage = ({ backHome }) => {
 
 	return (
 		<View style={{
@@ -25,4 +25,4 @@ const OptionsPage = ({ backHome }) => {
 	)
 }
 
-export default OptionsPage
+export default ScorePage

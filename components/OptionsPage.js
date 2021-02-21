@@ -4,6 +4,11 @@ import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings.json"
 
 export const getLang = (value) => {
+	// check if the lang exist, if not exist use 'en' by default.
+	if (!language[lang]) {
+		return language['en'][value];
+	}
+
 	return language[lang][value];
 }
 

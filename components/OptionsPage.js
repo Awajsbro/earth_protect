@@ -1,6 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Svg, { G, Path } from 'react-native-svg'
+import { lang, language } from "../settings.json"
+
+export const getLang = (value) => {
+	return language[lang][value];
+}
+
+// TODO: Add list of supported lang with label : getLang('LANG')
 
 const OptionsPage = ({ backHome }) => {
 

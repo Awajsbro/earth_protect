@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Button } from 'react-native'
 import GamePage from "./components/GamePage"
 import UpgradesPage from "./components/UpgradesPage"
-import OptionsPage from "./components/OptionsPage"
+import OptionsPage, { getLang } from "./components/OptionsPage"
 import ScorePage from "./components/ScorePage"
 
 export default function App() {
@@ -17,27 +17,27 @@ export default function App() {
         switch (currentPage) {
           case 0:
             return <View>
-              <View style={{ height: 35, width: 9 * screenWidth / 10, margin: 10 }}>
+              <View style={[styles.button, { width: 9 * screenWidth / 10 }]}>
                 <Button
-                  title="Play"
+                  title={getLang('BUTTON_PLAY')}
                   onPress={() => setCurrentPage(1)}
                 />
               </View>
-              <View style={{ height: 35, width: 9 * screenWidth / 10, margin: 10 }}>
+              <View style={[styles.button, { width: 9 * screenWidth / 10 }]}>
                 <Button
-                  title="Upgrades"
+                  title={getLang('BUTTON_UPGRADES')}
                   onPress={() => setCurrentPage(2)}
                 />
               </View>
-              <View style={{ height: 35, width: 9 * screenWidth / 10, margin: 10 }}>
+              <View style={[styles.button, { width: 9 * screenWidth / 10 }]}>
                 <Button
-                  title="Options"
+                  title={getLang('BUTTON_SETTINGS')}
                   onPress={() => setCurrentPage(3)}
                 />
               </View>
-              <View style={{ height: 35, width: 9 * screenWidth / 10, margin: 10 }}>
+              <View style={[styles.button, { width: 9 * screenWidth / 10 }]}>
                 <Button
-                  title="Score"
+                  title={getLang('BUTTON_SCORE')}
                   onPress={() => setCurrentPage(4)}
                 />
               </View>
@@ -65,5 +65,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: "hidden"
+  },
+  button: {
+    height: 35,
+    margin: 10
   },
 })

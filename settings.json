@@ -11,5 +11,27 @@
 	"asteroidRng": 0.96,
 	"precisionMinBonus": 0.7,
 	"delayBetweenShoot": 200,
-	"radiusBlast": 200
+	"radiusBlast": 200,
+
+	"lang": "fr",
+	"language": {
+		"en": {
+			"LANG": "English",
+			"BUTTON_PLAY": "Play",
+			"BUTTON_UPGRADES": "Upgrades",
+			"BUTTON_SETTINGS": "Settings",
+			"BUTTON_SCORE": "Score",
+			"GAME_OVER_HITS": "Hits",
+			"GAME_OVER_BONUS": "Precision bonus"
+		},
+		"fr": {
+			"LANG": "Français",
+			"BUTTON_PLAY": "Jouer",
+			"BUTTON_UPGRADES": "Amélioration",
+			"BUTTON_SETTINGS": "Options",
+			"BUTTON_SCORE": "Score",
+			"GAME_OVER_HITS": "Coups",
+			"GAME_OVER_BONUS": "Bonus de précision"
+		}
+	}
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Button } from 'react-native'
-import { } from "./settings.json"
 import GamePage from "./components/GamePage"
 import UpgradesPage from "./components/UpgradesPage"
 import OptionsPage from "./components/OptionsPage"

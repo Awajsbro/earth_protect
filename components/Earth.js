@@ -7,7 +7,7 @@ const Earth = ({ screenHeigth }) => {
 	return (
 		<View style={{
 			position: "absolute",
-			backgroundColor: "blue",
+			backgroundColor: "#66883f",
 			height: earthRadius * 2,
 			width: earthRadius * 2,
 			borderRadius: earthRadius,

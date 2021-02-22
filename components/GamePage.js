@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
-import { asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast } from "../settings.json"
+import { asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast, megaBombSpeed } from "../settings.json"
 import Asteroid from "./Asteroid"
 import Earth from "./Earth"
 import Shoot from "./Shoot"
@@ -29,7 +29,7 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 	let megaBombTimerId
 
 
-	const [tmp, settmp] = useState([])
+	// const [tmp, settmp] = useState([])
 
 
 	// Vector calculator
@@ -91,7 +91,7 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 			}
 	}
 
-
+	// Handle for long press
 	const longPressHandler = (x, y) => {
 		if (newTapForLong && !chargeBeam) {
 			setNewTapForLong(false)
@@ -128,8 +128,9 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 			angleMidPt = 0
 		setMegaBomb({
 			t: 0,
+			step: -1.9455252918288e-6 * dist + 0.0015136186770428,
 			x: screenWidth / 2,
-			y: shootStartY,
+			y: screenHeight - shootStartY,
 			midPtX: screenWidth / 2 - Math.sin(angleMidPt) * distMidPt,
 			midPtY: screenHeight - shootStartY - Math.cos(angleMidPt) * distMidPt,
 			targetX,
@@ -147,13 +148,25 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 				if (theWorld) {
 					setMegaBomb({ ...megaBomb })
 				} else if (megaBomb.t < 1) {
-					const pt1 = linearInterpolation(screenWidth / 2, screenHeight - shootStartY, megaBomb.midPtX, megaBomb.midPtY, megaBomb.t)
-					const pt2 = linearInterpolation(megaBomb.midPtX, megaBomb.midPtY, megaBomb.targetX, megaBomb.targetY, megaBomb.t)
-					const ptMegaBomb = linearInterpolation(pt1[0], pt1[1], pt2[0], pt2[1], megaBomb.t)
+					let pt1 = linearInterpolation(screenWidth / 2, screenHeight - shootStartY, megaBomb.midPtX, megaBomb.midPtY, megaBomb.t)
+					let pt2 = linearInterpolation(megaBomb.midPtX, megaBomb.midPtY, megaBomb.targetX, megaBomb.targetY, megaBomb.t)
+					let ptMegaBomb = linearInterpolation(pt1[0], pt1[1], pt2[0], pt2[1], megaBomb.t)
+					let dist = distCalculator(megaBomb.x, megaBomb.y, ptMegaBomb[0], ptMegaBomb[1])
+					let time = megaBomb.t + megaBomb.step * 20
 
+					while (dist < megaBombSpeed && time < 1) {
+						const prevPtMegaBomb = ptMegaBomb
+
+						i++
+						pt1 = linearInterpolation(screenWidth / 2, screenHeight - shootStartY, megaBomb.midPtX, megaBomb.midPtY, time)
+						pt2 = linearInterpolation(megaBomb.midPtX, megaBomb.midPtY, megaBomb.targetX, megaBomb.targetY, time)
+						ptMegaBomb = linearInterpolation(pt1[0], pt1[1], pt2[0], pt2[1], time)
+						dist += distCalculator(prevPtMegaBomb[0], prevPtMegaBomb[1], ptMegaBomb[0], ptMegaBomb[1])
+						time += megaBomb.step
+					}
 					setMegaBomb({
 						...megaBomb,
-						t: megaBomb.t + 0.01,
+						t: time,
 						x: ptMegaBomb[0],
 						y: ptMegaBomb[1],
 						angle: pt1[1] > pt2[1] ? angleCalculator(pt1[0], pt1[1], pt2[0], pt2[1]) : -angleCalculator(pt1[0], pt1[1], pt2[0], pt2[1]),

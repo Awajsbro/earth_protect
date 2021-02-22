@@ -11,5 +11,7 @@
 	"asteroidRng": 0.96,
 	"precisionMinBonus": 0.7,
 	"delayBetweenShoot": 200,
-	"radiusBlast": 200
+	"radiusBlast": 200,
+	"megaBombSpeed": 7,
+	"nbUpgrade": 7
 }

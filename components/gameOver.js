@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { format } from 'react-string-format'
 import { precisionMinBonus } from "../settings.json"
 import Svg, { G, Path } from 'react-native-svg'
 import { getLang } from './OptionsPage'
@@ -10,7 +9,7 @@ const GameOver = ({ hits, shootsCount, restart, backHome }) => {
 
 	return <>
 		<Text style={{ color: "white", zIndex: 0, }}>
-			{format('{0} : {1} \n{2} {3}%\n', getLang('GAME_OVER_HITS'), hits, getLang('GAME_OVER_BONUS'), Math.round(bonus * 100))}
+			{`${getLang('GAME_OVER_HITS')} : ${hits}\n${getLang('GAME_OVER_BONUS')} ${Math.round(bonus * 100)}%\n`}
 			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>
 				{`Score : ${Math.round(hits * (1 + bonus))}\n\n`}
 			</Text>

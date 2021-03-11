@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { life } from "../settings.json"
+import { life } from "../settings"
 
 const HealthBar = ({ hits, screenWidth }) => {
 

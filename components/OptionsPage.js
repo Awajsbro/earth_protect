@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Svg, { G, Path } from 'react-native-svg'
-import { lang, language } from "../settings.json"
+import { lang, language } from "../settings"
 
 export const getLang = (value) => {
 	// check if the lang exist, if not exist use 'en' by default.

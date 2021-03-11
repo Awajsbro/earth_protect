@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
-import { asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast, megaBombSpeed } from "../settings.json"
+import { screenHeight, screenWidth, asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast, megaBombSpeed } from "../settings"
 import Asteroid from "./Asteroid"
 import Earth from "./Earth"
 import Shoot from "./Shoot"
@@ -9,7 +9,7 @@ import MegaBomb from "./MegaBomb"
 import HealthBar from "./HealthBar"
 import GameOver from "./gameOver"
 
-const GamePage = ({ screenHeight, screenWidth, backHome }) => {
+const GamePage = ({ backHome }) => {
 	const [asteroids, setAsteroids] = useState({})
 	const [shoots, setShoots] = useState({})
 	const [newShoot, setNewShoot] = useState(null)
@@ -413,7 +413,7 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 					{`Tap\t\t\t\tshoot\nHold\t\t\tざわ-るど\nDouble tap\t\tmega bomb\nHold double tap\tcharge beam`}
 				</Text>
 			}
-			<Earth screenHeigth={screenHeight} />
+			<Earth />
 			{asteroidsRender()}
 			{shootsRender()}
 			{megaBomb ? megaBombRender() : null}

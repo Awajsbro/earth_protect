@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { chargeBeamWidth, shootStartY } from "../settings.json"
+import { screenHeight, chargeBeamWidth, shootStartY } from "../settings"
 
-const ChargeBeam = ({ x, y, angle, screenHeight }) => {
+const ChargeBeam = ({ x, y, angle }) => {
 
 	return <View style={{
 		position: "absolute",

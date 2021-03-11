@@ -1,14 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import Svg, { G, Path } from 'react-native-svg'
 
 const ScorePage = ({ backHome }) => {
+	const [stats, setStats] = useState({
+		nbPlay: 0,
+		totalHits: 0,
+		averageScore: 0,
+		bestScore: 0,
+		averagePrecision: 0,
+		bestPrecision: 0,
+	})
+
+	useEffect(() => {
+		async function loadStats() {
+			try {
+				let prevStats = await AsyncStorage.getItem("stats")
+				if (prevStats)
+					setStats(JSON.parse(prevStats))
+
+			} catch (err) {
+				console.error(err)
+			}
+		}
+
+		loadStats()
+	}, [])
 
 	return (
 		<View style={{
-			position: "absolute",
-			height: "100%",
-			width: "100%"
+			flex: 1,
+			width: "100%",
+			backgroundColor: 'black',
+			alignItems: 'center',
+			justifyContent: 'center',
 
 		}}>
 			<TouchableOpacity style={{ position: "absolute", top: 40, left: 20 }} onPress={() => backHome()}>
@@ -21,6 +47,12 @@ const ScorePage = ({ backHome }) => {
 					</G>
 				</Svg>
 			</TouchableOpacity>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`nombre de parties totales : ${stats.nbPlay}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`nombre de tirs Totales : ${stats.totalHits}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Score moyen : ${stats.averageScore}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Meilleur score : ${stats.bestScore}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Precision moyenne : ${stats.averagePrecision * 100}%\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Meilleur precision : ${stats.bestPrecision * 100}%\n`}</Text>
 		</View>
 	)
 }

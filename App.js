@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Button } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import GamePage from "./components/GamePage"
 import UpgradesPage from "./components/UpgradesPage"
 import OptionsPage, { getLang } from "./components/OptionsPage"
 import ScorePage from "./components/ScorePage"
+import { screenWidth } from "./settings"
 
 export default function App() {
-  const screenWidth = Dimensions.get("screen").width
-  const screenHeight = Dimensions.get("screen").height
   const [currentPage, setCurrentPage] = useState(0)
-
-  useEffect(() => {
-    try {
-      console.log("try to load save")
-    } catch (err) {
-      console.error(err)
-    }
-  }, [])
 
   // HTML
   return (
@@ -51,13 +43,13 @@ export default function App() {
               </View>
             </View>
           case 1:
-            return <GamePage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
+            return <GamePage backHome={() => setCurrentPage(0)} />
           case 2:
-            return <UpgradesPage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
+            return <UpgradesPage backHome={() => setCurrentPage(0)} />
           case 3:
-            return <OptionsPage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
+            return <OptionsPage backHome={() => setCurrentPage(0)} />
           case 4:
-            return <ScorePage screenHeight={screenHeight} screenWidth={screenWidth} backHome={() => setCurrentPage(0)} />
+            return <ScorePage backHome={() => setCurrentPage(0)} />
         }
       })()}
     </View >

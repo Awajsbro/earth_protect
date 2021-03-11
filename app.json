@@ -28,6 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Jeux pour tester",
+    "githubUrl": "https://github.com/Awajsbro/earth_protect"
   }
 }

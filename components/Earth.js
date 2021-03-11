@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { earthRadius } from "../settings.json"
+import { screenHeight, earthRadius } from "../settings"
 
-const Earth = ({ screenHeigth }) => {
+const Earth = () => {
 
 	return (
 		<View style={{
@@ -11,7 +11,7 @@ const Earth = ({ screenHeigth }) => {
 			height: earthRadius * 2,
 			width: earthRadius * 2,
 			borderRadius: earthRadius,
-			top: screenHeigth - 200,
+			top: screenHeight - 200,
 		}} />
 	)
 }

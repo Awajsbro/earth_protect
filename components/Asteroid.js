@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { asteroidRadius } from "../settings.json"
+import { asteroidRadius } from "../settings"
 
 const Asteroid = ({ x, y }) => {
 

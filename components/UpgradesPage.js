@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Svg, { G, Path, Circle, Rect } from 'react-native-svg'
-import { nbUpgrade } from "../settings.json"
+import { nbUpgrade } from "../settings"
 
 
 const UpgradesPage = ({ backHome }) => {

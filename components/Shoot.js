@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { shootHeight, shootWidth } from "../settings.json"
+import { shootHeight, shootWidth } from "../settings"
 
 const Shoot = ({ x, y, angle }) => {
 

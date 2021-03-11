@@ -10,6 +10,7 @@
 * [-] Message tuto
 * [ ] Delais tir/competence
 * [ ] Barre de rechargement
+* [ ] Sauvegarde et chargement
 
 **Page :**
 * [ ] Home

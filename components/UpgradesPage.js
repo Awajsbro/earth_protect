@@ -18,13 +18,15 @@ const UpgradesPage = ({ backHome }) => {
 		let ret = []
 
 		for (let i = 0; i < nbUpgrade; i++) {
-			ret.push(<TouchableOpacity style={{ margin: 5 }}>
-				<Svg x="0" y="0" width="15" height="25" viewBox="0 0 100 200">
-					<Circle fill="white" cx="50" cy="50" r="50" />
-					<Rect fill="white" x="0" y="50" width="100" height="100" />
-					<Circle fill="white" cx="50" cy="150" r="50" />
-				</Svg>
-			</TouchableOpacity>)
+			ret.push(
+				<TouchableOpacity key={i} style={{ margin: 5 }}>
+					<Svg x="0" y="0" width="15" height="25" viewBox="0 0 100 200">
+						<Circle fill="white" cx="50" cy="50" r="50" />
+						<Rect fill="white" x="0" y="50" width="100" height="100" />
+						<Circle fill="white" cx="50" cy="150" r="50" />
+					</Svg>
+				</TouchableOpacity>
+			)
 		}
 		return ret
 	}
@@ -37,8 +39,8 @@ const UpgradesPage = ({ backHome }) => {
 					<Path fill="white" d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816 c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245 c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136 c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998 L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125 c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z" />
 				</Svg>
 			</TouchableOpacity>
-			{upgradeLst.map(upgrade => {
-				return <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+			{upgradeLst.map((upgrade, i) => {
+				return <View key={i} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
 					<Text style={{ color: "white", paddingLeft: 30, paddingRight: 10 }}>{upgrade}</Text>
 					{renderPoint()}
 				</View>

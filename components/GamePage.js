@@ -157,7 +157,6 @@ const GamePage = ({ screenHeight, screenWidth, backHome }) => {
 					while (dist < megaBombSpeed && time < 1) {
 						const prevPtMegaBomb = ptMegaBomb
 
-						i++
 						pt1 = linearInterpolation(screenWidth / 2, screenHeight - shootStartY, megaBomb.midPtX, megaBomb.midPtY, time)
 						pt2 = linearInterpolation(megaBomb.midPtX, megaBomb.midPtY, megaBomb.targetX, megaBomb.targetY, time)
 						ptMegaBomb = linearInterpolation(pt1[0], pt1[1], pt2[0], pt2[1], time)

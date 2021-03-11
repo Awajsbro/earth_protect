@@ -10,6 +10,14 @@ export default function App() {
   const screenHeight = Dimensions.get("screen").height
   const [currentPage, setCurrentPage] = useState(0)
 
+  useEffect(() => {
+    try {
+      console.log("try to load save")
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
+
   // HTML
   return (
     <View style={styles.container}>

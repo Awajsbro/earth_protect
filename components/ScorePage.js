@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Svg, { G, Path } from 'react-native-svg'
+import { getLang } from './OptionsPage'
 
 const ScorePage = ({ backHome }) => {
 	const [stats, setStats] = useState({
@@ -47,12 +48,12 @@ const ScorePage = ({ backHome }) => {
 					</G>
 				</Svg>
 			</TouchableOpacity>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`nombre de parties totales : ${stats.nbPlay}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`nombre de tirs Totales : ${stats.totalHits}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Score moyen : ${stats.averageScore}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Meilleur score : ${stats.bestScore}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Precision moyenne : ${stats.averagePrecision * 100}%\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`Meilleur precision : ${stats.bestPrecision * 100}%\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_TOTAL_PLAYED')} : ${stats.nbPlay}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_TOTAL_HITS')} : ${stats.totalHits}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_AVERAGE')} : ${stats.averageScore}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_BEST')} : ${stats.bestScore}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_PRECISION')} : ${stats.averagePrecision * 100}%\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_BEST_PRECISION')} : ${stats.bestPrecision * 100}%\n`}</Text>
 		</View>
 	)
 }

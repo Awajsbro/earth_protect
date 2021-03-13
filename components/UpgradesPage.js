@@ -2,17 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Svg, { G, Path, Circle, Rect } from 'react-native-svg'
 import { nbUpgrade } from "../settings"
-
+import { getLang } from './OptionsPage'
 
 const UpgradesPage = ({ backHome }) => {
-	const upgradeLst = ["life",
-		"shoots frequency",
-		"mega bomb(unlock / number)",
-		"mega bomb range",
-		"mega laser(unlock / frequency)",
-		"the World(unlock / frequency)",
-		"bonus golds"]
-
+	const upgradeLst = [getLang('UPGRADE_LIFE'), getLang('UPGRADE_SHOOTS_FREQUENCY'), getLang('UPGRADE_MEGA_BOMB'), getLang('UPGRADE_MEGA_BOMB_RANGE'), getLang('UPGRADE_MEGA_LASER'), getLang('UPGRADE_THE_WORLD'), getLang('UPGRADE_BONUS')]
 
 	const renderPoint = () => {
 		let ret = []

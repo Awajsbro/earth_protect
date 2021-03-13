@@ -5,10 +5,7 @@ import { lang, language } from "../settings"
 
 export const getLang = (value) => {
 	// check if the lang exist, if not exist use 'en' by default.
-	if (!language[lang]) {
-		return language['en'][value];
-	}
-
+	if (!language[lang]) return language['en'][value];
 	return language[lang][value];
 }
 

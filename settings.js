@@ -36,7 +36,15 @@ export const language = {
 		SCORE_AVERAGE: "Average score",
 		SCORE_BEST: "Best score",
 		SCORE_PRECISION: "Average precision",
-		SCORE_BEST_PRECISION: "Best precision"
+		SCORE_BEST_PRECISION: "Best precision",
+
+		UPGRADE_LIFE: "Life",
+		UPGRADE_SHOOTS_FREQUENCY: "Shoots frequency",
+		UPGRADE_MEGA_BOMB: "Mega bomb (unlock / number)",
+		UPGRADE_MEGA_BOMB_RANGE: "Mega bomb range",
+		UPGRADE_MEGA_LASER: "Mega laser (unlock / frequency)",
+		UPGRADE_THE_WORLD: "The world (unlock / frequency)",
+		UPGRADE_BONUS: "Bonus golds"
 
 	},
 	fr: {
@@ -55,7 +63,15 @@ export const language = {
 		SCORE_AVERAGE: "Score moyen",
 		SCORE_BEST: "Meilleur score",
 		SCORE_PRECISION: "Précision moyenne",
-		SCORE_BEST_PRECISION: "Meilleure précision"
+		SCORE_BEST_PRECISION: "Meilleure précision",
+
+		UPGRADE_LIFE: "Vie",
+		UPGRADE_SHOOTS_FREQUENCY: "Fréquence de tire",
+		UPGRADE_MEGA_BOMB: "Méga bombe (déverrouiller / numéro)",
+		UPGRADE_MEGA_BOMB_RANGE: "Distance méga bombe",
+		UPGRADE_MEGA_LASER: "Méga laser (déverrouiller / fréquence)",
+		UPGRADE_THE_WORLD: "Le monde (déverrouiller / fréquence)",
+		UPGRADE_BONUS: "Or bonus"
 
 	}
 }

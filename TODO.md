@@ -13,6 +13,7 @@
 * [x] Sauvegarde stats
 * [ ] Sauvegarde options
 * [ ] Sauvegarde upgrades
+* [ ] Support de multi-langue
 
 **Page :**
 * [ ] Home

@@ -1,25 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings"
 
-export const getLang = (value) => {
-	// check if the lang exist, if not exist use 'en' by default.
-	if (!language[lang]) return language['en'][value];
-	return language[lang][value];
+export const getLang = (value, target) => {
+	if (target === undefined) target = lang;
+	if (!language[target]) return language['en'][value];
+
+	return language[target][value];
 }
 
-// TODO: Add list of supported lang with label : getLang('LANG')
-
 const OptionsPage = ({ backHome }) => {
+	const [selectedLanguage, setSelectedLanguage] = useState(lang);
 
 	return (
-		<View style={{
-			position: "absolute",
-			height: "100%",
-			width: "100%"
-
-		}}>
+		<View style={styles.container}>
 			<TouchableOpacity style={{ position: "absolute", top: 40, left: 20 }} onPress={() => backHome()}>
 				<Svg x="0px" y="0px" width="50" height="50" viewBox="0 0 460.298 460.297">
 					<G>
@@ -30,8 +26,33 @@ const OptionsPage = ({ backHome }) => {
 					</G>
 				</Svg>
 			</TouchableOpacity>
+			<Text style={styles.title} >{getLang('BUTTON_SETTINGS')}</Text>
+			<Picker style={styles.picker} selectedValue={selectedLanguage} onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue) }>
+				<Picker.Item label={getLang('LANG', 'en')} value="en" />
+				<Picker.Item label={getLang('LANG', 'fr')} value="fr" />
+			</Picker>
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		width: '100%',
+		backgroundColor: 'black',
+		alignItems: 'center',
+		justifyContent: 'center',
+		overflow: 'hidden'
+	},
+	title: {
+		color: 'white',
+		marginBottom: 15,
+		fontSize: 30
+	},
+	picker: {
+		width: 130,
+		fontSize: 20
+	}
+})
 
 export default OptionsPage

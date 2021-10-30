@@ -1,18 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const getLang = (value, target) => {
-	if (target === undefined) target = lang;
-	if (!language[target]) return language['en'][value];
+	if (target === undefined) target = lang // TODO: Change lang to get saved lang from options in storage.
+	if (!language[target]) return language['en'][value]
+	return language[target][value]
+}
 
-	return language[target][value];
+async function updateOptions(value) {
+	try {
+		await AsyncStorage.setItem("options", JSON.stringify({
+			lang: value['lang']
+		}))
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const OptionsPage = ({ backHome }) => {
-	const [selectedLanguage, setSelectedLanguage] = useState(lang);
+	const [options, setOptions] = useState({
+		lang: lang
+	})
+
+	useEffect(() => {
+		async function loadOptions() {
+			try {
+				let savedOptions = await AsyncStorage.getItem("options")
+				if (savedOptions)
+					setOptions(JSON.parse(savedOptions))
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		loadOptions()
+	}, [])
 
 	return (
 		<View style={styles.container}>
@@ -27,7 +53,7 @@ const OptionsPage = ({ backHome }) => {
 				</Svg>
 			</TouchableOpacity>
 			<Text style={styles.title} >{getLang('BUTTON_SETTINGS')}</Text>
-			<Picker style={styles.picker} selectedValue={selectedLanguage} onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue) }>
+			<Picker style={styles.picker} selectedValue={options['lang']} onValueChange={(itemValue, itemIndex) => {setOptions(itemValue), updateOptions({lang: itemValue})}}>
 				<Picker.Item label={getLang('LANG', 'en')} value="en" />
 				<Picker.Item label={getLang('LANG', 'fr')} value="fr" />
 			</Picker>

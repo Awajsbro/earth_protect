@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Picker } from '@react-native-picker/picker'
 import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings"
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const getLang = (value, target) => {
 	if (target === undefined) target = lang // TODO: Change lang to get saved lang from options in storage.

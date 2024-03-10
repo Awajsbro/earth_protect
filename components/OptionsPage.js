@@ -5,10 +5,10 @@ import { Picker } from '@react-native-picker/picker'
 import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings"
 
-export const getLang = (value, target) => {
-	if (target === undefined) target = lang // TODO: Change lang to get saved lang from options in storage.
-	if (!language[target]) return language['en'][value]
-	return language[target][value]
+export const getLang = (value, tLang) => {
+	if (!language[lang]) return `Translation missing into ${lang}.`;
+	if (!language[lang][value]) return `Translation missing of ${value} into ${lang}.`;
+	return language[tLang || lang][value];
 }
 
 async function updateOptions(value) {

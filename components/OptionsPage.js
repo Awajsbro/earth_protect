@@ -42,7 +42,7 @@ const OptionsPage = ({ backHome }) => {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={{ position: "absolute", top: 40, left: 20 }} onPress={() => backHome()}>
+			<TouchableOpacity style={{ position: "absolute", top: 20, left: 20 }} onPress={() => backHome()}>
 				<Svg x="0px" y="0px" width="50" height="50" viewBox="0 0 460.298 460.297">
 					<G>
 						<G>

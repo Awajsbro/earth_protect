@@ -1,22 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Picker } from '@react-native-picker/picker'
 import Svg, { G, Path } from 'react-native-svg'
 import { lang, language } from "../settings"
 
-export const getLang = (value, target) => {
-	if (target === undefined) target = lang;
-	if (!language[target]) return language['en'][value];
+export const getLang = (value, tLang) => {
+	if (!language[lang]) return `Translation missing into ${lang}.`;
+	if (!language[lang][value]) return `Translation missing of ${value} into ${lang}.`;
+	return language[tLang || lang][value];
+}
 
-	return language[target][value];
+async function updateOptions(value) {
+	try {
+		await AsyncStorage.setItem("options", JSON.stringify({
+			lang: value['lang']
+		}))
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const OptionsPage = ({ backHome }) => {
-	const [selectedLanguage, setSelectedLanguage] = useState(lang);
+	const [options, setOptions] = useState({
+		lang: lang
+	})
+
+	useEffect(() => {
+		async function loadOptions() {
+			try {
+				let savedOptions = await AsyncStorage.getItem("options")
+				if (savedOptions)
+					setOptions(JSON.parse(savedOptions))
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		loadOptions()
+	}, [])
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={{ position: "absolute", top: 40, left: 20 }} onPress={() => backHome()}>
+			<TouchableOpacity style={{ position: "absolute", top: 20, left: 20 }} onPress={() => backHome()}>
 				<Svg x="0px" y="0px" width="50" height="50" viewBox="0 0 460.298 460.297">
 					<G>
 						<G>
@@ -27,7 +53,7 @@ const OptionsPage = ({ backHome }) => {
 				</Svg>
 			</TouchableOpacity>
 			<Text style={styles.title} >{getLang('BUTTON_SETTINGS')}</Text>
-			<Picker style={styles.picker} selectedValue={selectedLanguage} onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue) }>
+			<Picker style={styles.picker} selectedValue={options['lang']} onValueChange={(itemValue, itemIndex) => {setOptions(itemValue), updateOptions({lang: itemValue})}}>
 				<Picker.Item label={getLang('LANG', 'en')} value="en" />
 				<Picker.Item label={getLang('LANG', 'fr')} value="fr" />
 			</Picker>

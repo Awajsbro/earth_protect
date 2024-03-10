@@ -53,7 +53,7 @@ const GameOver = ({ hits, shootsCount, restart, backHome }) => {
 	return (
 		<>
 			<Text style={{ color: "white", zIndex: 0, }}>
-				{`${getLang('GAME_OVER_HITS')} : ${hits}\n${getLang('GAME_OVER_BONUS')} ${Math.round(bonus * 100)}%\n meilleur score ${best}\n`}
+				{`${getLang('GAME_OVER_HITS')} : ${hits}\n${getLang('GAME_OVER_BONUS')} : ${Math.round(bonus * 100)}%\n${getLang('SCORE_BEST')} : ${best}\n`}
 				<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>
 					{`Score : ${score}\n\n`}
 				</Text>

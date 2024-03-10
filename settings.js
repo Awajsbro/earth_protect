@@ -28,6 +28,8 @@ export const language = {
 		BUTTON_SETTINGS: "Settings",
 		BUTTON_SCORE: "Score",
 
+		GAME_START_INFO: "Tap :\t\t\t\tshoot\nHold :\t\t\tざわ-るど\nDouble tap :\t\tmega bomb\nHold double tap :\tcharge beam",
+
 		GAME_OVER_HITS: "Hits",
 		GAME_OVER_BONUS: "Precision bonus",
 
@@ -54,6 +56,8 @@ export const language = {
 		BUTTON_UPGRADES: "Amélioration",
 		BUTTON_SETTINGS: "Options",
 		BUTTON_SCORE: "Score",
+
+		GAME_START_INFO: "Appuyez :\t\t\t\t\tTirer\nMaintenir :\t\t\t\t\tざわ-るど\nAppuyez deux fois :\t\t\t\tMéga bombe\nMaintenez appuyée deux fois :\tFaisceau de charge",
 
 		GAME_OVER_HITS: "Coups",
 		GAME_OVER_BONUS: "Bonus de précision",

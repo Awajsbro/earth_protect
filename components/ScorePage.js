@@ -4,6 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import Svg, { G, Path } from 'react-native-svg'
 import { getLang } from './OptionsPage'
 
+function roundScore(score) {
+	return Math.round(score * 100) / 100;
+}
+
 const ScorePage = ({ backHome }) => {
 	const [stats, setStats] = useState({
 		nbPlay: 0,
@@ -38,7 +42,7 @@ const ScorePage = ({ backHome }) => {
 			justifyContent: 'center',
 
 		}}>
-			<TouchableOpacity style={{ position: "absolute", top: 40, left: 20 }} onPress={() => backHome()}>
+			<TouchableOpacity style={{ position: "absolute", top: 20, left: 20 }} onPress={() => backHome()}>
 				<Svg x="0px" y="0px" width="50" height="50" viewBox="0 0 460.298 460.297">
 					<G>
 						<G>
@@ -50,10 +54,10 @@ const ScorePage = ({ backHome }) => {
 			</TouchableOpacity>
 			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_TOTAL_PLAYED')} : ${stats.nbPlay}\n`}</Text>
 			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_TOTAL_HITS')} : ${stats.totalHits}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_AVERAGE')} : ${stats.averageScore}\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_AVERAGE')} : ${roundScore(stats.averageScore)}\n`}</Text>
 			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_BEST')} : ${stats.bestScore}\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_PRECISION')} : ${stats.averagePrecision * 100}%\n`}</Text>
-			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_BEST_PRECISION')} : ${stats.bestPrecision * 100}%\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_PRECISION')} : ${roundScore(stats.averagePrecision) * 100}%\n`}</Text>
+			<Text style={{ fontSize: 18, color: "white", zIndex: 0, }}>{`${getLang('SCORE_BEST_PRECISION')} : ${roundScore(stats.bestPrecision) * 100}%\n`}</Text>
 		</View>
 	)
 }

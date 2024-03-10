@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
-import { screenHeight, screenWidth, asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast, megaBombSpeed } from "../settings"
-import Asteroid from "./Asteroid"
-import Earth from "./Earth"
-import Shoot from "./Shoot"
-import ChargeBeam from "./ChargeBeam"
-import MegaBomb from "./MegaBomb"
-import HealthBar from "./HealthBar"
-import GameOver from "./gameOver"
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { screenHeight, screenWidth, asteroidRadius, asteroidSpeed, shootWidth, shootStartY, shootSpeed, asteroidRng, life, chargeBeamWidth, delayBetweenShoot, radiusBlast, megaBombSpeed } from '../settings';
+import Asteroid from './Asteroid';
+import Earth from './Earth';
+import Shoot from './Shoot';
+import ChargeBeam from './ChargeBeam';
+import MegaBomb from './MegaBomb';
+import HealthBar from './HealthBar';
+import GameOver from './gameOver';
+import { getLang } from './OptionsPage';
 
 const GamePage = ({ backHome }) => {
 	const [asteroids, setAsteroids] = useState({})
@@ -410,7 +411,7 @@ const GamePage = ({ backHome }) => {
 		>
 			{gameStart ? null :
 				<Text style={{ color: "white" }}>
-					{`Tap\t\t\t\tshoot\nHold\t\t\tざわ-るど\nDouble tap\t\tmega bomb\nHold double tap\tcharge beam`}
+					{getLang('GAME_START_INFO')}
 				</Text>
 			}
 			<Earth />
